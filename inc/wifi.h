@@ -4,3 +4,4 @@ char *get_ap_name(char **args);
 char *connect_wifi(char **args);
 char *wlan_info(char **args);
 char *toggle_broadcast(char **args);
+char *disconnect_wifi(char **args);

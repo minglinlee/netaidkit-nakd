@@ -23,7 +23,8 @@ static command commands[] = {
     { "stagevpn", toggle_vpn, 1 },
     { "doupdate", do_update, 1},
     { "broadcst", toggle_broadcast, 1},
-    { "isportal", detect_portal, 0}
+    { "isportal", detect_portal, 0},
+    { "wifistop", disconnect_wifi, 0}
 };
 
 command *get_command(char *cmd_name) {
