@@ -13,7 +13,7 @@ char *scan_wifi(char **args) {
     char *response = NULL;
     char *arglist[] = {"wlan0", "scan", NULL}; // MUST END WITH NULL!
 
-    response = do_command("/nak/scripts/iwinfo.sh", arglist);
+    response = do_command(NAKD_SCRIPT("iwinfo.sh"), arglist);
 
     return response;
 }
@@ -22,7 +22,7 @@ char *disconnect_wifi(char **args) {
     char *response = NULL;
     char *arglist[] = {NULL}; // MUST END WITH NULL!
 
-    response = do_command("/nak/scripts/iwinfo.sh", arglist);
+    response = do_command(NAKD_SCRIPT("reset_uplink_wifi.sh"), arglist);
 
     return response;
 }
@@ -31,7 +31,7 @@ char *disconnect_wifi(char **args) {
 char *ap_config(char **args) {
     char *response = NULL;
 
-    response = do_command("/nak/scripts/setup_ap.sh", args);
+    response = do_command(NAKD_SCRIPT("setup_ap.sh"), args);
 
     return response;
 }
@@ -39,7 +39,7 @@ char *ap_config(char **args) {
 char *get_ap_name(char **args) {
     char *response = NULL;
 
-    response = do_command("/nak/scripts/get_ap_name.sh", args);
+    response = do_command(NAKD_SCRIPT("get_ap_name.sh"), args);
 
     return response;
 }
@@ -47,7 +47,7 @@ char *get_ap_name(char **args) {
 char *connect_wifi(char **args) {
     char *response = NULL;
 
-    response = do_command("/nak/scripts/setup_wan.sh", args);
+    response = do_command(NAKD_SCRIPT("setup_wan.sh"), args);
 
     return response;
 }
@@ -55,7 +55,7 @@ char *connect_wifi(char **args) {
 char *wlan_info(char **args) {
     char *response = NULL;
 
-    response = do_command("/nak/scripts/wlan_info.sh", args);
+    response = do_command(NAKD_SCRIPT("wlan_info.sh"), args);
 
     return response;
 }
@@ -63,7 +63,7 @@ char *wlan_info(char **args) {
 char *toggle_broadcast(char **args) {
     char *response = NULL;
 
-    response = do_command("/nak/scripts/toggle_broadcast.sh", args);
+    response = do_command(NAKD_SCRIPT("toggle_broadcast.sh"), args);
 
     return response;
 }
