@@ -21,7 +21,7 @@ static command commands[] = {
     CMD_SHELL_NAKD("doupdate", "do_update.sh"),
     CMD_SHELL_NAKD("broadcst", "toggle_broadcast.sh"),
     CMD_SHELL_NAKD("isportal", "detect_portal.sh"),
-    CMD_SHELL_NAKD("wifistop", "reset_uplink_wifi.sh"),
+    CMD_SHELL_NAKD("wifistop", "reset_uplink_wifi.sh")
 };
 
 command *nakd_get_command(const char *cmd_name) {
