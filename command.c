@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include "command.h"
 #include "shell.h"
+#include "stage.h"
 #include "log.h"
 #include "misc.h"
+#include "openvpn.h"
 
 static command commands[] = {
 //    { "getapnam", get_ap_name, 0 },
@@ -21,7 +23,8 @@ static command commands[] = {
     CMD_SHELL_NAKD("doupdate", "do_update.sh"),
     CMD_SHELL_NAKD("broadcst", "toggle_broadcast.sh"),
     CMD_SHELL_NAKD("isportal", "detect_portal.sh"),
-    CMD_SHELL_NAKD("wifistop", "reset_uplink_wifi.sh")
+    { "stage", cmd_stage, NULL },
+    { "openvpn", cmd_openvpn, NULL }
 };
 
 command *nakd_get_command(const char *cmd_name) {

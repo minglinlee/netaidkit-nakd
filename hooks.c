@@ -1,7 +1,14 @@
+#include <strings.h>
 #include <uci.h>
 #include "hooks.h"
 #include "config.h"
 #include "log.h"
+
+void _call_state_hook(struct nakd_uci_hook *hook, const char *state,
+                                         struct uci_option *option) {
+    nakd_log(L_DEBUG, "State %s reached; calling hook %s", state, hook->name);
+    hook->handler(hook->name, state, option);
+}
 
 int nakd_call_uci_hooks(const char *package,
     struct nakd_uci_hook *hook_list, const char *state) {
@@ -10,8 +17,9 @@ int nakd_call_uci_hooks(const char *package,
     struct uci_section *section;
     struct uci_option *option;
     struct uci_package *uci_pkg;
-    struct uci_context *ctx;
     
+    nakd_log(L_INFO, "Calling UCI hooks for \"%s\"", state);
+    nakd_log(L_DEBUG, "Loading UCI package %s", package);
     uci_pkg = nakd_load_uci_package(package);
     if (package == NULL)
         return 1;
@@ -26,13 +34,20 @@ int nakd_call_uci_hooks(const char *package,
          */
         uci_foreach_element(&uci_pkg->sections, sel) {
             section = uci_to_section(sel);
+            const char *name = uci_lookup_option_string(uci_pkg->ctx, section,
+                                                                      "name");
+
+            nakd_log(L_DEBUG, "Iterating over section %s", name);
 
             option = uci_lookup_option(uci_pkg->ctx, section, hook->name);
             if (option == NULL)
                 continue;
+            else
+                nakd_log(L_DEBUG, "Found hook: %s", hook->name);
 
             if (option->type == UCI_TYPE_STRING) {
-                hook->handler(hook->name, state, option);
+                if (!strcasecmp(option->v.string, state))
+                    _call_state_hook(hook, state, option); 
             } else if (option->type == UCI_TYPE_LIST) {
                 /*
                  * ...and through options, which are in fact lists
@@ -40,15 +55,18 @@ int nakd_call_uci_hooks(const char *package,
                  *  list nak_hooks_disable   'stage_vpn'
                  */
                 uci_foreach_element(&option->v.list, lel) {
-                    hook->handler(hook->name, state, option);
+                    if (!strcasecmp(lel->name, state))
+                        _call_state_hook(hook, state, option);
                 }
             } else {
-                nakd_assert(!(int)("unreachable"));
+                /* unreachable */
+                nakd_assert(0 && "unreachable");
             }
-            if (nakd_uci_save(uci_pkg))
-                return 1;
         }
     }
+
+    if (nakd_uci_save(uci_pkg))
+        return 1;
 
     /* nakd probably wouldn't recover from these */
     nakd_assert(!nakd_uci_commit(&uci_pkg, true));
