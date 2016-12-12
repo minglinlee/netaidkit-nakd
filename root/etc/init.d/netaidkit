@@ -3,6 +3,10 @@
 START=99
 STOP=99
 
+LAN_LED_PATH="/sys/class/leds/alfa:yellow:lan/brightness"
+WLAN_LED_PATH="/sys/class/leds/alfa:yellow:wlan/brightness"
+SYS_LED_PATH="/sys/class/leds/alfa:yellow:sys/brightness"
+
 start() {
     echo "starting netaidkit."
 }
@@ -13,8 +17,9 @@ stop() {
 
 boot() {
     # Clear LEDS
-    echo "0" > /sys/class/leds/gl-connect\:green\:lan/brightness
-    echo "0" > /sys/class/leds/gl-connect\:red\:wlan/brightness
+    echo "0" > $LAN_LED_PATH
+    echo "0" > $WLAN_LED_PATH
+	echo "0" > $SYS_LED_PATH
 
     # Start nakd
     (/usr/bin/nakd &>/dev/null) &
@@ -45,14 +50,14 @@ boot() {
     # Reboot daemons for state persistence.
     stage=$(cat /etc/stage)
     if [ $stage = "3" ]; then
-        echo "1" > /sys/class/leds/gl-connect\:green\:lan/brightness
+        echo "1" > $LAN_LED_PATH
         rm /var/log/tor/notices.log
         /etc/init.d/tor start
     elif [ $stage = "4" ]; then
-        echo "1" > /sys/class/leds/gl-connect\:green\:lan/brightness
+        echo "1" > $LAN_LED_PATH
         > /var/log/openvpn.log
         openvpn --log-append /var/log/openvpn.log --daemon --config /nak/ovpn/current.ovpn
     else
-        echo "1" > /sys/class/leds/gl-connect\:red\:wlan/brightness
+        echo "1" > $WLAN_LED_PATH
     fi
 }
