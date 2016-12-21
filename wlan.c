@@ -564,8 +564,7 @@ static struct led_condition _led_scan_working = {
     .name = "wlan scan-working",
     .priority = LED_PRIORITY_NOTIFICATION,
     .states = (struct led_state[]){
-        { "LED1_path", NULL, 1 },
-        { "LED2_path", NULL, 1 },
+		{ "LED_SYS_path", NULL, 1 },
         {}
     },
     .blink.on = 1,

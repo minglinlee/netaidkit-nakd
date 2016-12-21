@@ -2,5 +2,7 @@ package 'nakd'
 
 config 'nakd' 'nakd'
         option stage setup
+		option LED_LAN_path "/sys/class/leds/alfa:yellow:lan/brightness"
+		option LED_WLAN_path "/sys/class/leds/alfa:yellow:wlan/brightness"
 		option LED_SYS_path "/sys/class/leds/alfa:yellow:sys/brightness"
         option wlan_autoconnect 1
