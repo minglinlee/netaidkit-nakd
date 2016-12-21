@@ -94,8 +94,7 @@ static struct stage _stage_reset = {
         .name = "stage_reset",
         .priority = LED_PRIORITY_MODE,
         .states = (struct led_state[]){
-            { "LED1_path", NULL, 1 },
-            { "LED2_path", NULL, 1 },
+			{ "LED_SYS_path", NULL, 0 },
             {}
         },
         .blink.on = 0,
@@ -127,11 +126,10 @@ static struct stage _stage_setup = {
         .name = "stage_offline",
         .priority = LED_PRIORITY_MODE,
         .states = (struct led_state[]){
-            { "LED1_path", NULL, 1 },
-            { "LED2_path", NULL, 1 },
+			{ "LED_SYS_path", NULL, 0 },
             {}
         },
-        .blink.on = 0,
+        .blink.on = 1,
     },
 };
 
@@ -158,8 +156,7 @@ static struct stage _stage_offline = {
         .name = "stage_offline",
         .priority = LED_PRIORITY_MODE,
         .states = (struct led_state[]){
-            { "LED1_path", NULL, 1 },
-            { "LED2_path", NULL, 1 },
+			{ "LED_SYS_path", NULL, 0 },
             {}
         },
         .blink.on = 0,
@@ -202,8 +199,7 @@ static struct stage _stage_vpn = {
         .name = "stage_vpn",
         .priority = LED_PRIORITY_MODE,
         .states = (struct led_state[]){
-            { "LED1_path", NULL, 1 },
-            { "LED2_path", NULL, 0 },
+			{ "LED_SYS_path", NULL, 1 },
             {}
         },
         .blink.on = 0,
@@ -233,8 +229,7 @@ static struct stage _stage_tor = {
         .name = "stage_tor",
         .priority = LED_PRIORITY_MODE,
         .states = (struct led_state[]){
-            { "LED1_path", NULL, 1 },
-            { "LED2_path", NULL, 0 },
+			{ "LED_SYS_path", NULL, 1 },
             {}
         },
         .blink.on = 0,
@@ -264,8 +259,7 @@ static struct stage _stage_online = {
         .name = "stage_online",
         .priority = LED_PRIORITY_MODE,
         .states = (struct led_state[]){
-            { "LED1_path", NULL, 0 },
-            { "LED2_path", NULL, 1 },
+			{ "LED_SYS_path", NULL, 0 },
             {}
         },
         .blink.on = 0,
@@ -286,8 +280,7 @@ static struct led_condition _led_stage_working = {
     .name = "stage-working",
     .priority = LED_PRIORITY_NOTIFICATION,
     .states = (struct led_state[]){
-        { "LED1_path", NULL, 1 },
-        { "LED2_path", NULL, 1 },
+		{ "LED_SYS_path", NULL, 1 },
         {}
     },
     .blink.on = 1,

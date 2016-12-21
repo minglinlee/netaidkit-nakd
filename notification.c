@@ -9,8 +9,7 @@ static struct led_condition _led_cable_plugged = {
     .name = "Ethernet plugged",
     .priority = LED_PRIORITY_NOTIFICATION,
     .states = (struct led_state[]){
-        { "LED1_path", NULL, 0 },
-        { "LED2_path", NULL, 1 },
+		{ "LED_SYS_path", NULL, 0 },
         {}
     },
     .blink.on = 1,
@@ -23,8 +22,7 @@ static struct led_condition _led_cable_removed = {
     .name = "Ethernet unplugged",
     .priority = LED_PRIORITY_NOTIFICATION,
     .states = (struct led_state[]){
-        { "LED1_path", NULL, 1 },
-        { "LED2_path", NULL, 0 },
+		{ "LED_SYS_path", NULL, 1 },
         {}
     },
     .blink.on = 1,
@@ -37,8 +35,7 @@ static struct led_condition _led_traffic = {
     .name = "Network traffic",
     .priority = LED_PRIORITY_NOTIFICATION,
     .states = (struct led_state[]){
-        { "LED1_path", NULL, 0 },
-        { "LED2_path", NULL, 0 },
+		{ "LED_SYS_path", NULL, 0 },
         {}
     },
     .blink.on = 1,
@@ -51,8 +48,7 @@ static struct led_condition _connectivity_lost = {
     .name = "Connectivity lost",
     .priority = LED_PRIORITY_ACTION_NEEDED,
     .states = (struct led_state[]){
-        { "LED1_path", NULL, 1 },
-        { "LED2_path", NULL, 1 },
+		{ "LED_SYS_path", NULL, 1 },
         {}
     },
     .blink.on = 1,
@@ -68,10 +64,10 @@ struct led_event_notification {
 
     struct event_handler *event_handler;
 } static _event_notifications[] = {
-    { ETHERNET_WAN_PLUGGED, &_led_cable_plugged, 0 },
-    { ETHERNET_LAN_PLUGGED, &_led_cable_plugged, 0 },
-    { ETHERNET_WAN_LOST, &_led_cable_removed, 0 },
-    { ETHERNET_LAN_LOST, &_led_cable_removed, 0 },
+    //{ ETHERNET_WAN_PLUGGED, &_led_cable_plugged, 0 },
+    //{ ETHERNET_LAN_PLUGGED, &_led_cable_plugged, 0 },
+    //{ ETHERNET_WAN_LOST, &_led_cable_removed, 0 },
+    //{ ETHERNET_LAN_LOST, &_led_cable_removed, 0 },
     { CONNECTIVITY_LOST, &_connectivity_lost, 0 },
     { CONNECTIVITY_OK, &_connectivity_lost, 1 },
     { NETWORK_TRAFFIC, &_led_traffic, 0 },
