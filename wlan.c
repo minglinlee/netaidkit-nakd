@@ -874,9 +874,9 @@ json_object *nakd_wlan_requested(void) {
 
 static int __wlan_disconnect(void) {
     nakd_log(L_INFO, "Disabling WLAN.");
-    if (nakd_disable_interface(NAKD_WLAN)) {
+    /*if (nakd_disable_interface(NAKD_WLAN)) {
         return 1;
-    }
+    }*/
 
     _connected_timestamp = 0;
     __swap_current_network(NULL);
